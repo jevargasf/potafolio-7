@@ -1,68 +1,43 @@
 const express = require('express')
-const { access, constants, readFile, readFileSync, writeFile } = require('node:fs');
+const Productos = require('../models/Productos.js')
 
-// ruta json data
-const file = './public/data/productos.json'
 
-// comprueba que el archivo existe en el directorio
-access(file, constants.F_OK, (err) => {
-    console.log(`${file} ${err ? 'no existe' : 'existe'}`)
-})
 
-access(file, constants.R_OK, (err) => {
-    console.log(`${file} ${err ? 'no se puede leer' : 'sí se puede leer'}`)
-})
 
-access(file, constants.W_OK, (err) => {
-    console.log(`${file} ${err ? 'no se puede escribir' : 'sí se puede escribir'}`)
-})
+// envío de dataJson
 
-// json de productos
-const dataJson = readFileSync(file, 'utf8', (err, data) => {
-    if (err) throw err
-    data
-    })
 
-let dataObjeto = JSON.parse(dataJson)
+const conseguirProductos = async (req, res) => {
+    const rows = await Productos.findAll()
 
-function conseguirProductos (req, res) {
-    res.send('ruta get de productos')
+    res.status(201).json(rows)
 }
 
-const conseguirProductoId = (req, res) => {
+const conseguirProductoId = async (req, res) => {
    try {
-    conseguirId = req.params
-    let producto = null
-    dataObjeto.forEach(item => {
-        if (item.id == req.params.id) {
-            producto = item
+    const producto = await Productos.findByPk(req.params.id);
+        if (producto === null) {
+            res.json('Producto no encontrado. Por favor, intente nuevamente');
+        } else {
+            res.json(producto)
         }
-    });
-    res.json(producto)
     } catch (err) {
         console.log('Error: ', err)
     }
 }
 
-function postearProductos (req, res) {
+const postearProductos = async (req, res) => {
     try {
-        let nuevoProducto = { nombre, precio, stock, descripcion } = req.body
-        nuevoProducto = Object.assign( {id: 16}, nuevoProducto)
-        dataObjeto.push(nuevoProducto)
-        console.log(dataObjeto)
+        let dataProducto = { nombre, precio, stock, descripcion } = req.body
+        dataProducto["imagen"] = 'img/'+req.file.originalname
+        console.log(dataProducto)
+        // crear instancia para escribir datos en el modelo
+        const nuevoProducto = await Productos.create(dataProducto)
 
-        writeFile(file, JSON.stringify(dataObjeto, 0, 4), (err) => {
-            if (err)
-              console.log(err);
-            else {
-              console.log("File written successfully\n");
-              console.log("The written has the following contents:");
-              console.log(readFileSync(file, "utf8"));
-              res.json(dataObjeto)
-            }
-          });
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.json({ mensaje: "El envío de los datos se procesó correctamente"})
+        // guardar cambios
+        await nuevoProducto.save()
+
+        res.status(201).json({ mensaje: "El envío de los datos se procesó correctamente"})
     } catch (err) {
         console.log('error: ', err)
     }
@@ -70,56 +45,33 @@ function postearProductos (req, res) {
 }
 
 
-function actualizarProductos (req, res) {
+const actualizarProductos = async (req, res) => {
     try {
-        dataObjeto.forEach(item => {
-            if (item.id === parseInt(req.params.id)) {
-                item.nombre = req.body.nombre
-                item.precio = req.body.precio
-                item.stock = req.body.stock
-                item.descripcion = req.body.descripcion
-            }
+        const id = req.params.id
+        let producto = { nombre, precio, stock, descripcion } = req.body
+        producto["imagen"] = 'img/'+req.file.originalname
+
+        const actualizarProducto = await Productos.update(producto, {
+            where: { id }
         })
-        
-       writeFile(file, JSON.stringify(dataObjeto, 0, 4), (err) => {
-            if (err)
-              console.log(err);
-            else {
-              console.log("File written successfully\n");
-              console.log("The written has the following contents:");
-              console.log(readFileSync(file, "utf8"));
-              res.json({ mensaje: "Registro actualizado exitosamente." })
-            }
-          });
-       } catch (err) {
+        res.status(200).json({ mensaje: 'Producto actualizado correctamente.' });
+
+    } catch (err) {
            console.log('Error: ', err)
-       }
+    }
 }
 
 
-function borrarProductos (req, res) {
-    try {
-        const idBorrar = parseInt(req.params.id)
-        
-        // borrar producto del objeto de productos 
-        let arrNuevo = dataObjeto.filter(item =>
-            item.id != idBorrar
-        )
-        writeFile(file, JSON.stringify(arrNuevo, 0, 4), (err) => {
-            if (err)
-                console.log(err);
-            else {
-                console.log("File written successfully\n");
-                console.log("The written has the following contents:");
-                console.log(readFileSync(file, "utf8"));
-                res.json({ mensaje: "El registro se borró correctamente."})
+const borrarProductos = async (req, res) => {
+    try {        
+        await Productos.destroy({
+            where: {
+              id: req.params.id
             }
-        });
-
+          });
     } catch (err) {
         console.log('Error: ', err)
     }
 }
 
-
-module.exports = { postearProductos, actualizarProductos, borrarProductos, conseguirProductoId, conseguirProductos, dataJson }
+module.exports = { postearProductos, actualizarProductos, borrarProductos, conseguirProductoId, conseguirProductos }

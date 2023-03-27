@@ -4,37 +4,227 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba 7</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
+    <title>Tiendita de Música</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="row justify-content-center align-items-center my-4">
-                <img src="./img/Globe_icon.svg" class="img-fluid col-1" alt="logo-globo">        
-                <h1>PIB Países del Mundo</h1>
+<!-- Nav + Carro de compras -->
+<header>
+    <img src="./img/header_tiendaChico.jpg" class="img-fluid" id="header-imagen" alt="img-fluid">
+</header>
+<nav class="navbar navbar-expand-xl navbar-light bg-light pt-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Tiendita de Música</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBasic" aria-controls="navbarBasic" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse show" id="navbarBasic">
+        <ul class="navbar-nav mb-2 mb-xl-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">Inicio</a>
+          </li>
+        
+          <li class="nav-item">
+            <a class="nav-link" href="./pages/nosotros.html">Nuestra tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./pages/contacto.html" tabindex="-1" aria-disabled="true">Contacto</a>
+          </li>
+        </ul>
+        
+  <!-- Modal ingreso usuarios -->
+        <!-- Modal inicio sesión -->
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel">Inicio de sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Usuario o Correo electrónico</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Contraseña</label>
+          </div>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="submit" class="btn btn-success">Ingresar</button>
+              <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+              Registrarse
+              </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Modal registro -->
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel2">Ingresa tus datos de usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="RUT" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Correo electrónico" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          </div>
+          
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password">
+          </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Volver a inicio de sesión</button>
+          <button class="btn btn-primary">Registrarse</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary" data-bs-toggle="modal" href="./pages/inventario.html" role="button">Ingresar</a>
+
+
+  <!-- Botón carrito / Offcanvas -->
+        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+          <p id="medalla"><span class="material-symbols-outlined">shopping_cart</span></p>
+        </button>
+        <div class="offcanvas offcanvas-end overflow-scroll" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+          <div class="offcanvas-header d-block text-center">
+            <h5 class="offcanvas-title">Tu compra</h5>
+            <div class="offcanvas-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th></th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody id="cuerpoCarrito">
+                </tbody>
+                <tr id="inputDescuento"></tr>
+                <tfoot>
+                  <tr id="totalCarrito">
+                    <td colspan="4">Tu carrito está vacío.</td>
+                  </tr>
+                  <tr id="irCarrito"></tr>
+                </tfoot>
+              </table>
             </div>
+          </div>
         </div>
-    </header>
-    <section>
-        <div class="container text-center col-10 mb-5 p-3">
-            <h5>Consulta el PIB per cápita 2019 y 2020 de diferentes países del mundo</h5>
+      </div>
+    </div>
+</nav>
+
+<!-- Tajetas Productos -->
+<div class="row row-cols-1 row-cols-sm-4 pt-5 pb-5 px-5" id="contenedorTarjetas">
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="text-center p-4 text-secondary" style="background-color: rgba(0, 0, 0, 0.05);">
+    Tiendita de Música | Av. del Valle #0542, Villa Dulce, Región del Lib. Bernardo O'Higgins | Tel: 024 756 2514 - 024 756 2515 | © 2022 Copyright:
+    <a class="text-reset fw-bold" href="#">Javier Vargas</a>
+  </div>
+</footer>
+
+<!-- Templates -->
+  <!-- Tarjetas productos -->
+<template id="templateTarjetas">
+  <div class="col-3 d-flex">
+
+  <div class="card d-flex tarjetaProducto">
+    <div class="container text-center" >
+      <img class="card-img-top object-fit-contain p-3 img" style="height: 10rem; width: auto;" alt="card-grid-image">
+    </div>
+    <div class="card-body d-flex flex-column">
+
+        <h5 class="card-title nombre"></h5>
+        <h4 class="card-title precio"></h4>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-around mt-auto">
+            <a class="btn btn-secondary btnVerMas" data-bs-toggle="modal" href="#" role="button">Ver más</a>
+            <button type="button" class="btn btn-primary botonAgregar">Agregar al carrito</button>
         </div>
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <button type="button" class="btn btn-light col-3 m-3" id="listarRegistros" value="1">Ver todos los registros</button>
-                <button type="button" class="btn btn-light col-3 m-3" id="agregarRegistro">Agrega un registro</button>
-                <button type="button" class="btn btn-light col-3 m-3" id="borrarRegistro">Elimina un registro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal productos -->
+  <div class="modal fade" aria-hidden="true" aria-labelledby="modalFicha" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Tiendita de Música</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div class="row  pt-5 pb-5 px-5">
+            <div class="col-8 d-flex align-items-lg-stretch">
+                <div class="card">
+                <div class="row g-0">
+                    <div class="col-4 col-sm-4">
+                    <img class="img-fluid w-100 p-3 imgModal" alt="card-horizontal-image">
+                    </div>
+                    <div class="col-8 col-sm-8">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title nombreModal"></h5>
+                        <h4 class="card-title precioModal"></h4>
+                        <p class="card-text descripcionModal"></p>
+                                </div>
+                    </div>
+                </div>
+                </div>
             </div>
+            <div class="col-4">
+                <div class="card">
+                <div class="card-header stockModal">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Despacho a todo el país</h5>
+                    <p class="card-text">Paga en hasta 12 cuotas sin interés.</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Devolución gratis. Tienes hasta 30 días desde que lo recibes.
+                </div>
+                </div>
+            </div>
+            </div>
+
+
         </div>
-    </section>
-    <section>
-        <div class="container col-8" id="contenedorData"></div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="app.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+        </div>
+        </div>
+    </div>
+    </div>
+  </template>
+
+
+<script type="text/javascript" src="./js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 </html>

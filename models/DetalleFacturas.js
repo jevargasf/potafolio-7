@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 const database = require('../config/db.js')
 
-const Productos = database.define('productos', {
+const DetalleFacturas = database.define('detalleFacturas', {
     // estructura de la tabla
     id: {
         type: DataTypes.INTEGER,
@@ -9,32 +9,21 @@ const Productos = database.define('productos', {
         autoIncrement: true,
         allowNull: false
     },
-    nombre: {
-        type: DataTypes.STRING(200),
-        allowNull: false
-    },
-    precio: {
+    cantidadProducto: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    descripcion: {
-        type: DataTypes.STRING(4000),
-        allowNull: false
-    },
-    stock: {
+    subtotal: {
         type: DataTypes.INTEGER,
         allowNull: false
-    },
-    imagen: {
-        type: DataTypes.STRING(200),
-        allowNull: true
-    } 
+    }
 }, {
     timestamps: false,
     freezeTableName: true
 })
 
 // Relaciones con el resto de modelos
+// idProducto
+// idFactura
 
-
-module.exports = Productos
+module.exports = DetalleFacturas

@@ -2,14 +2,19 @@ const express = require('express');
 require('dotenv').config()
 const database = require('./config/db.js')
 const { authenticate, sync } = require('sequelize')
-//const cors = require('cors')
-//const routerProductos = require('./routes/productosRoutes')
+const db = require('./models/asociaciones.js')
+const cors = require('cors')
+const routerProductos = require('./routes/productosRoutes')
 //const routerVentas = require('./routes/ventas')
-//const routerPrincipal = require('./routes/routes')
+const routerPrincipal = require('./routes/routes')
+const multer = require('multer')
+const path = require('path')
 
 // declara el puerto, lo busca como variable de entorno o asigna el puerto
 const PORT = process.env.PORT || 8000
 const app = express();
+
+
 
 // Conexión a la BD y sincronización de modelos con BD
 conexion = async () => {
@@ -24,24 +29,37 @@ conexion = async () => {
 }
 conexion()
 
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'public/img'), 
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    }
+})
 
-// uso de cors
-//app.use(cors())
+// importar relaciones entre modelos
+db.defineAssociations()
 
 // middlewares
-//app.use(express.json());
-//app.use(express.urlencoded());
+app.use(cors())
+app.use(multer({
+    storage,
+    dest: path.join(__dirname, 'public/img'),
+    limits: { fileSize: 2000000 } 
+}).single('imagen'))
+
+app.use(express.json());
+app.use(express.urlencoded());
 
 
 // Definir rutas de las páginas de la aplicación
-//app.use('/', routerPrincipal)
+app.use('/', routerPrincipal)
 
-// Llamada a rutas CRUD productos y ventas
-//app.use('/productos', routerProductos)
+// Rutas productos y ventas
+app.use('/productos', routerProductos)
 //app.use('/ventas', routerVentas)
 
 // servir archivos estáticos desde public
-//app.use(express.static("public"));
+app.use(express.static("public"));
 
 
 
