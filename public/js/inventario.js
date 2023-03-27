@@ -253,7 +253,7 @@ const listarProductos = async() => {
 
         const contenedorTabla = document.getElementById("contenedorTabla")
         // petición datos
-            const rutaGet = 'http://localhost:8000/'
+            const rutaGet = 'http://localhost:8000/productos/'
             const res = await axios(rutaGet)
             res.data.forEach(item => {
             const nuevaFila = document.createElement("tr")

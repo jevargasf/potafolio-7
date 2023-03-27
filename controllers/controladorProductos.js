@@ -8,8 +8,10 @@ const Productos = require('../models/Productos.js')
 
 
 const conseguirProductos = async (req, res) => {
-    const rows = await Productos.findAll()
-
+    const rows = await Productos.findAll({order: [
+        ['id', 'ASC']
+      ]
+    })
     res.status(201).json(rows)
 }
 

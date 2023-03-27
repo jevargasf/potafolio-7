@@ -35,6 +35,9 @@ const Productos = database.define('productos', {
 })
 
 // Relaciones con el resto de modelos
-
+/*(async () => {
+    const maxId = await Productos.max('id');
+    Productos.sequelize.query(`ALTER SEQUENCE "public.productos_id_seq" RESTART WITH ${maxId + 1}`);
+  })();*/
 
 module.exports = Productos
