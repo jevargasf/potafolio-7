@@ -6,7 +6,7 @@ const database = new Sequelize(process.env.BD_NAME, process.env.BD_USER, process
     port: process.env.BD_PORT, 
     dialect: 'postgres',
     pool: {
-        max: 1,
+        max: 5,
         min: 0,
         acquire: 30000,
         idle: 10000

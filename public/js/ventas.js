@@ -28,7 +28,8 @@ let carrito = {
                 producto = {
                     idProducto: item.id,
                     cantidad: item.cantidad,
-                    subtotal: item.cantidad*item.precio 
+                    subtotal: item.cantidad*item.precio, 
+                    nuevoStock: item.stock-item.cantidad
                 }
                 datosFactura.productos.push(producto)
             })

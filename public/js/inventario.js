@@ -358,31 +358,7 @@ const conseguirVentas = async () => {
         // petición datos
             const rutaGet = 'http://localhost:8000/ventas'
             const res = await axios(rutaGet)
-            console.log(res.data)
-        // calcular totales para cada factura
-        /*function sumarTotal(){
-            prodsVenta = []
-            idVentasRep = []
-            res.data.forEach(venta => idVentasRep.push(venta.id))
-            idVentas = [...new Set(idVentasRep)]
-            totalesFacturas = []
-            idVentas.forEach(id => {
-                arrVenta = res.data.filter(element => element.id == id)
-                montosSumar = []
-                arrVenta.forEach(item => {montosSumar.push(item.precio*item.cantidad)})
-                sumaFactura = montosSumar.reduce((a, b) => a+b, 0)
-                totalesFacturas.push({ ["idFactura"]: id, ["total"]: sumaFactura })
-            })
-            totalesFacturas.forEach(factura => {
-                res.data.forEach(venta => {
-                    if (factura.idFactura == venta.id) {
-                        venta["totalVenta"] = factura.total
-                    }
-                })
-                
-            })
-        }        
-        sumarTotal()*/
+
             arrVentas = []
             
             res.data.forEach(venta => {
@@ -463,17 +439,6 @@ const conseguirVentasId = async () => {
             break
         }
         
-        // calcular totales para cada factura
-        /*function sumarTotal(){
-            montosSumar = []
-            res.data.forEach(item => {montosSumar.push(item.precio*item.cantidad)})
-            sumaFactura = montosSumar.reduce((a, b) => a+b, 0)
-            res.data.forEach(prod => {
-                prod["totalVenta"] = sumaFactura
-            })
-                
-        }        
-        sumarTotal()*/
         arrVentas = []
         
         res.data.forEach(venta => {

@@ -5,6 +5,7 @@ const Administradores = require('../models/Administradores.js')
 const Facturas = require('../models/Facturas.js')
 const DetalleFacturas = require('../models/DetalleFacturas.js')
 const database = require('../config/db.js')
+const { Op } = require('sequelize')
 
 
 const getVentas = async (req, res) => {
@@ -66,6 +67,9 @@ const postVenta = async (req, res) => {
 
        // crear arreglo con detalles de productos y idFactura
         arrDetalles = []
+        arrStock = []
+        arrStockSolo = []
+        arrId = []
         req.body.productos.forEach(item => {
             const nuevoDetalle = {
                 idFactura: nuevaFactura.id,
@@ -74,38 +78,23 @@ const postVenta = async (req, res) => {
                 subtotal: item.subtotal
             }
             arrDetalles.push(nuevoDetalle)
+            arrStock.push({id: item.idProducto, stock: item.nuevoStock})
+            arrStockSolo.push(item.nuevoStock)
+            arrId.push(item.idProducto)
         });
-        const detallesFactura = await DetalleFacturas.bulkCreate(arrDetalles, { transaction: t })
-    // recibir data body y formatear para ingresar
-        /*const dataCliente = {
-            rut: '11111111-1',
-            nombre: 'Evaristo Pruebas',
-            correo: 'prueba@tiendita.cl',
-            contrasena: 'pruebaprueba',
-            telefono: '+56933333333',
-            direccion: 'Villa Prueba #0000',
-            comuna: 'Santa Prueba',
-            region: 'Región de la Prueba'
-        }
-
-        const dataAdministrador = {
-            rut: '22222222-2',
-            nombre: 'Admin Administrador',
-            correo: 'admin@tiendita.cl',
-            contrasena: 'adminadmin'
-        }*/
- //       
-        
-       
-        // crear instancia para recibir los datos en los modelos
-        //const nuevoCliente = await Clientes.create(dataCliente, { transaction: t })
-        //const nuevoAdmin = await Administradores.create(dataAdministrador, { transaction: t })
-       
-      
-        // guardar cambios en modelos
-        //await nuevoCliente.save()
-        //await nuevoAdmin.save()
         await nuevaFactura.save()
+
+        const detallesFactura = await DetalleFacturas.bulkCreate(arrDetalles, { transaction: t })
+
+        // actualizar stock productos
+
+    //   const nuevosStock = await Productos.bulkCreate(arrStock, {
+    //    updateOnDuplicate: ['stock']
+     //  }, { transaction: t })
+        console.log(arrStockSolo, arrId)
+      //  await Productos.update({ stock: arrStockSolo }, {
+       //     where: { id: arrId }
+       // }, { transaction: t })
 
         await t.commit()
 
