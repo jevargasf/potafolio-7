@@ -20,7 +20,7 @@ const Clientes = database.define('clientes', {
         type: DataTypes.STRING(50),
         allowNull: false
     },
-    constasena: {
+    contrasena: {
         type: DataTypes.STRING(20),
         allowNull: false
     },

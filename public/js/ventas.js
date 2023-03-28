@@ -22,14 +22,13 @@ let carrito = {
             // escribir datos factura
             fecha = new Date()
             let datosFactura = {
-                fecha: `${fecha.getDate()}-${fecha.getMonth()+1}-${fecha.getFullYear()}`,
-                hora: `${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`,
                 productos: []
             }
             this.productos.forEach(item => {
                 producto = {
                     idProducto: item.id,
-                    cantidad: item.cantidad
+                    cantidad: item.cantidad,
+                    subtotal: item.cantidad*item.precio 
                 }
                 datosFactura.productos.push(producto)
             })

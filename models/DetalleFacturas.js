@@ -3,12 +3,6 @@ const database = require('../config/db.js')
 
 const DetalleFacturas = database.define('detalleFacturas', {
     // estructura de la tabla
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
     cantidadProducto: {
         type: DataTypes.INTEGER,
         allowNull: false

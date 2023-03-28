@@ -71,6 +71,7 @@ const borrarProductos = async (req, res) => {
               id: req.params.id
             }
           });
+          res.status(200).json({ mensaje: "Producto eliminado exitosamente." })
     } catch (err) {
         console.log('Error: ', err)
     }

@@ -338,7 +338,7 @@ const conseguirVentas = async () => {
                         <th scope="col" rowspan="2">Id Factura</th>
                         <th scope="col" rowspan="2">Fecha</th>
                         <th scope="col" rowspan="2">Hora</th>
-                        <th scope="col" rowspan="2">Total Venta</th>
+                        <th scope="col" rowspan="2">Subtotal Productos</th>
                         <th class="text-center" scope="col" colspan="2">
                             Productos
                             <tr>
@@ -358,9 +358,9 @@ const conseguirVentas = async () => {
         // petición datos
             const rutaGet = 'http://localhost:8000/ventas'
             const res = await axios(rutaGet)
-            //console.log(res.data)
+            console.log(res.data)
         // calcular totales para cada factura
-        function sumarTotal(){
+        /*function sumarTotal(){
             prodsVenta = []
             idVentasRep = []
             res.data.forEach(venta => idVentasRep.push(venta.id))
@@ -382,16 +382,31 @@ const conseguirVentas = async () => {
                 
             })
         }        
-        sumarTotal()
-
+        sumarTotal()*/
+            arrVentas = []
+            
             res.data.forEach(venta => {
+                venta.detalleFacturas.forEach(detalle => {
+                    v = {}
+                    v["id"] = venta.id
+                    v["fecha"] = venta.createdAt.slice(0, 10)
+                    v["hora"] = venta.createdAt.slice(11, 19)
+                    v["cantidad"] = detalle.cantidadProducto
+                    v["subtotal"] = detalle.subtotal
+                    v["nombre"] = detalle.producto.nombre
+                    arrVentas.push(v)
+                })
+
+            })
+
+            arrVentas.forEach(venta => {
             const nuevaFila = document.createElement("tr")
             nuevaFila.innerHTML += `
         
                 <td>${venta.id}</td>
                 <td>${venta.fecha}</td>
                 <td>${venta.hora}</td>
-                <td>${venta.totalVenta}</td>
+                <td>${venta.subtotal}</td>
                 <td>${venta.nombre}</td>
                 <td>${venta.cantidad}</td>
 
@@ -400,6 +415,7 @@ const conseguirVentas = async () => {
 
 
             });
+
     } catch (err) {
         console.log('Error: ', err)
     }
@@ -416,7 +432,7 @@ const conseguirVentasId = async () => {
                         <th scope="col" rowspan="2">Id Factura</th>
                         <th scope="col" rowspan="2">Fecha</th>
                         <th scope="col" rowspan="2">Hora</th>
-                        <th scope="col" rowspan="2">Total Venta</th>
+                        <th scope="col" rowspan="2">Subtotal Producto</th>
                         <th class="text-center" scope="col" colspan="2">
                             Productos
                             <tr>
@@ -437,6 +453,7 @@ const conseguirVentasId = async () => {
             const idVenta = prompt("Ingrese el Id de la factura que desea consultar: ")
             const rutaGetId = `http://localhost:8000/ventas/${idVenta}`
             const res = await axios(rutaGetId)
+            console.log(res.data)
         // validación id factura
         while (res.data.length === 0) {
             contenedorVentas.setAttribute("class", "col-5 container p-3 m-auto text-center")
@@ -447,7 +464,7 @@ const conseguirVentasId = async () => {
         }
         
         // calcular totales para cada factura
-        function sumarTotal(){
+        /*function sumarTotal(){
             montosSumar = []
             res.data.forEach(item => {montosSumar.push(item.precio*item.cantidad)})
             sumaFactura = montosSumar.reduce((a, b) => a+b, 0)
@@ -456,16 +473,31 @@ const conseguirVentasId = async () => {
             })
                 
         }        
-        sumarTotal()
+        sumarTotal()*/
+        arrVentas = []
+        
+        res.data.forEach(venta => {
+            venta.detalleFacturas.forEach(detalle => {
+                v = {}
+                v["id"] = venta.id
+                v["fecha"] = venta.createdAt.slice(0, 10)
+                v["hora"] = venta.createdAt.slice(11, 19)
+                v["cantidad"] = detalle.cantidadProducto
+                v["subtotal"] = detalle.subtotal
+                v["nombre"] = detalle.producto.nombre
+                arrVentas.push(v)
+            })
 
-            res.data.forEach(venta => {
+        })
+
+            arrVentas.forEach(venta => {
             const nuevaFila = document.createElement("tr")
             nuevaFila.innerHTML += `
         
                 <td>${venta.id}</td>
                 <td>${venta.fecha}</td>
                 <td>${venta.hora}</td>
-                <td>${venta.totalVenta}</td>
+                <td>${venta.subtotal}</td>
                 <td>${venta.nombre}</td>
                 <td>${venta.cantidad}</td>
 
