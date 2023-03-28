@@ -16,8 +16,5 @@ const DetalleFacturas = database.define('detalleFacturas', {
     freezeTableName: true
 })
 
-// Relaciones con el resto de modelos
-// idProducto
-// idFactura
 
 module.exports = DetalleFacturas

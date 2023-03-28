@@ -68,8 +68,7 @@ const postVenta = async (req, res) => {
        // crear arreglo con detalles de productos y idFactura
         arrDetalles = []
         arrStock = []
-        arrStockSolo = []
-        arrId = []
+
         req.body.productos.forEach(item => {
             const nuevoDetalle = {
                 idFactura: nuevaFactura.id,
@@ -79,8 +78,6 @@ const postVenta = async (req, res) => {
             }
             arrDetalles.push(nuevoDetalle)
             arrStock.push({id: item.idProducto, stock: item.nuevoStock})
-            arrStockSolo.push(item.nuevoStock)
-            arrId.push(item.idProducto)
         });
         await nuevaFactura.save()
 
@@ -88,13 +85,9 @@ const postVenta = async (req, res) => {
 
         // actualizar stock productos
 
-    //   const nuevosStock = await Productos.bulkCreate(arrStock, {
-    //    updateOnDuplicate: ['stock']
-     //  }, { transaction: t })
-        console.log(arrStockSolo, arrId)
-      //  await Productos.update({ stock: arrStockSolo }, {
-       //     where: { id: arrId }
-       // }, { transaction: t })
+       const nuevosStock = await Productos.bulkCreate(arrStock, {
+        updateOnDuplicate: ['stock']
+       }, { transaction: t })
 
         await t.commit()
 

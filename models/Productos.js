@@ -11,19 +11,19 @@ const Productos = database.define('productos', {
     },
     nombre: {
         type: DataTypes.STRING(200),
-        allowNull: false
+        allowNull: true
     },
     precio: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     descripcion: {
         type: DataTypes.STRING(4000),
-        allowNull: false
+        allowNull: true
     },
     stock: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     imagen: {
         type: DataTypes.STRING(200),
@@ -34,10 +34,5 @@ const Productos = database.define('productos', {
     freezeTableName: true
 })
 
-// Relaciones con el resto de modelos
-/*(async () => {
-    const maxId = await Productos.max('id');
-    Productos.sequelize.query(`ALTER SEQUENCE "public.productos_id_seq" RESTART WITH ${maxId + 1}`);
-  })();*/
 
 module.exports = Productos
