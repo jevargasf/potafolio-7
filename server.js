@@ -5,8 +5,9 @@ const { authenticate, sync } = require('sequelize')
 const db = require('./models/asociaciones.js')
 const cors = require('cors')
 const routerProductos = require('./routes/productosRoutes')
-const routerVentas = require('./routes/ventas')
-const routerPrincipal = require('./routes/routes')
+const routerVentas = require('./routes/ventasRoutes')
+const routerContacto = require('./routes/contactoRoutes')
+const routerUsuarios = require('./routes/usuariosRoutes')
 const multer = require('multer')
 const path = require('path')
 
@@ -52,11 +53,10 @@ app.use(express.urlencoded());
 
 
 // Definir rutas de las páginas de la aplicación
-app.use('/', routerPrincipal)
-
-// Rutas productos y ventas
 app.use('/productos', routerProductos)
 app.use('/ventas', routerVentas)
+app.use('/usuarios', routerUsuarios)
+app.use('/', routerContacto)
 
 // servir archivos estáticos desde public
 app.use(express.static("public"));
