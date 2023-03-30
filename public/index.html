@@ -46,12 +46,12 @@
         <div class="modal-body">
 
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="usuario" name="usuario" placeholder="tucorreo@ejemplo.com">
-            <label for="usuario">Correo electrónico</label>
+            <input type="email" class="form-control" id="correoLogin" name="correoLogin" placeholder="tucorreo@ejemplo.com">
+            <label for="correoLogin">Correo electrónico</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña">
-            <label for="contrasena">Contraseña</label>
+            <input type="password" class="form-control" id="contrasenaLogin" placeholder="Contraseña">
+            <label for="contrasenaLogin">Contraseña</label>
           </div>
         </div>
         <div class="modal-footer text-center">
@@ -76,34 +76,33 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="formularioRegistro" name="formularioRegistro" enctype="application/x-www-form-urlencoded">
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
+              <input type="text" class="form-control" placeholder="Nombre" name="nombre" id="nombre" required>
             </div>
             
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="RUT" name="rut" required>
+              <input type="text" class="form-control" placeholder="RUT" name="rut" id="rut" required>
             </div>
 
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Correo electrónico" name="correo" required>
+              <input type="email" class="form-control" placeholder="Correo electrónico" name="correo" id="correo" required>
             </div>
             
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" name="contrasena" required>
+              <input type="password" class="form-control" placeholder="Password" name="contrasena" id="contrasena" required>
             </div>
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Teléfono (ej.: +56978841221)" name="telefono" required>
+              <input type="text" class="form-control" placeholder="Teléfono (ej.: +56978841221)" name="telefono" id="telefono" required>
             </div>
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Dirección" name="direccion" required>
+              <input type="text" class="form-control" placeholder="Dirección" name="direccion" id="direccion"  required>
             </div>
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Comuna" name="comuna" required>
+              <input type="text" class="form-control" placeholder="Comuna" name="comuna" id="comuna" required>
             </div>
 
             <div class="text-muted">
@@ -135,7 +134,6 @@
             <button type="button" id="botonRegistro" class="btn btn-primary">Registrarse</button>
 
           </div>
-        </form>
       </div>
     </div>
   </div>
