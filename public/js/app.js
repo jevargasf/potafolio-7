@@ -416,3 +416,19 @@ function pintarLocalStorage (arr) {
 }
 
 
+// eventos modal
+const modalLogin = document.getElementById("modalLogin")
+const btnLogin = document.getElementById("botonLogin")
+const modalRegistro = document.getElementById("modalRegistro")
+const btnRegistro = document.getElementById("botonRegistro")
+
+modalLogin.addEventListener('shown.bs.modal', () => {
+    btnLogin.addEventListener('click', e=>{
+        console.log(e.target)
+        modalRegistro.addEventListener('shown.bs.modal', () => {
+            btnRegistro.addEventListener('click', e=>console.log(e.target)
+              );
+          });  
+    });
+    
+  });

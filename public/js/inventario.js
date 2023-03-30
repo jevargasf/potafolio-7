@@ -12,6 +12,8 @@ const btnBorrarProducto = document.getElementById("borrarProducto")
 const btnConseguirVentas = document.getElementById("conseguirVentas")
 const btnConseguirVentasId = document.getElementById("conseguirVentasId")
 
+
+
     // calcular total venta
 
 // Pintar elementos DOM
@@ -493,9 +495,6 @@ btnBorrarProducto.addEventListener('click', (e) => {
 })
 btnConseguirVentas.addEventListener('click', conseguirVentas)
 btnConseguirVentasId.addEventListener('click', conseguirVentasId)
-
-    
-    
 
 
 
