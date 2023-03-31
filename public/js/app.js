@@ -415,6 +415,7 @@ function pintarLocalStorage (arr) {
         })
 }
 
+// LOGIN Y REGISTRO DE USUARIOS
 
 // eventos modal
 const modalLogin = document.getElementById("modalLogin")
@@ -427,43 +428,67 @@ const btnRegistro = document.getElementById("botonRegistro")
 
 modalLogin.addEventListener('shown.bs.modal', () => {
     modalRegistro.addEventListener('shown.bs.modal', () => {
-        btnRegistro.addEventListener('click', e=>{
-            console.log(e.target)
-            const nombre = document.getElementById("nombre")
-            const rut = document.getElementById("rut")
-            const correo = document.getElementById("correo")
-            const contrasena = document.getElementById("contrasena")
-            const telefono = document.getElementById("telefono")
-            const direccion = document.getElementById("direccion")
-            const comuna = document.getElementById("comuna")
-            const region = document.getElementById("region")
-
-            datosRegistro = new FormData()
-            datosRegistro.append("nombre", nombre.value)
-            datosRegistro.append("rut", rut.value)
-            datosRegistro.append("correo", correo.value)
-            datosRegistro.append("contrasena", contrasena.value)
-            datosRegistro.append("telefono", telefono.value)
-            datosRegistro.append("direccion", direccion.value)
-            datosRegistro.append("comuna", comuna.value)
-            //datosRegistro.append("region", region.value)
-            console.log(...datosRegistro)
-            
+        btnRegistro.addEventListener('click', async e=>{
+            try{
+                // recuperar data del DOM
+                e.preventDefault()
+                const nombre = document.getElementById("nombre")
+                const rut = document.getElementById("rut")
+                const correo = document.getElementById("correo")
+                const contrasena = document.getElementById("contrasena")
+                const telefono = document.getElementById("telefono")
+                const direccion = document.getElementById("direccion")
+                const comuna = document.getElementById("comuna")
+                const region = document.getElementById("region")
+    
+                datosRegistro = new FormData()
+                datosRegistro.append("nombre", nombre.value)
+                datosRegistro.append("rut", rut.value)
+                datosRegistro.append("correo", correo.value)
+                datosRegistro.append("contrasena", contrasena.value)
+                datosRegistro.append("telefono", telefono.value)
+                datosRegistro.append("direccion", direccion.value)
+                datosRegistro.append("comuna", comuna.value)
+                datosRegistro.append("region", region.value)    
+        
+                // petición post
+                const rutaPost = 'http://localhost:8000/usuarios/registro'
+                const res = await axios({
+                        method: 'post',
+                        url: rutaPost,
+                        data: datosRegistro
+                    })
+                console.log(res.data)
+                alert(res.data.mensaje)
+            } catch (err) {
+                console.log('Error: ', err)
+            }
         });
     });  
-    btnLogin.addEventListener('click', e=>{
-        console.log(e.target)
-        const correoLogin = document.getElementById("correoLogin")
-        const contrasenaLogin = document.getElementById("contrasenaLogin")
-        datosLogin = new FormData()
-        datosLogin.append("correo", correoLogin.value)
-        datosLogin.append("contrasena", contrasenaLogin.value)
-        console.log(...datosLogin)
-        
+    btnLogin.addEventListener('click', async e=>{        
+        try{
+            // recuperar data del DOM
+            e.preventDefault()  
+            const correoLogin = document.getElementById("correoLogin")
+            const contrasenaLogin = document.getElementById("contrasenaLogin")
+            datosLogin = new FormData()
+            datosLogin.append("correo", correoLogin.value)
+            datosLogin.append("contrasena", contrasenaLogin.value)
 
-    
+            // petición post
+            const rutaPost = 'http://localhost:8000/usuarios/iniciarSesion'
+            const res = await axios({
+                    method: 'post',
+                    url: rutaPost,
+                    data: datosLogin
+                })
+            console.log(res.data)
+            alert(res.data.mensaje)
+        } catch (err) {
+            console.log('Error: ', err)
+        }
     });
 });
-//
+
 
                 

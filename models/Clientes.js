@@ -18,10 +18,11 @@ const Clientes = database.define('clientes', {
     },
     correo: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     contrasena: {
-        type: DataTypes.STRING(20),
+        type: DataTypes.STRING(100),
         allowNull: false
     },
     telefono: {
